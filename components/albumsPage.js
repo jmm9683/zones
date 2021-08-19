@@ -5,6 +5,7 @@ import {
   ScrollView,
   Dimensions,
   Image,
+  ImageBackground,
 } from "react-native";
 import React, { Component } from "react";
 // import Image from "react-native-scalable-image";
@@ -16,27 +17,32 @@ class AlbumsPage extends Component {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.scrollView}>
-          <Image
-            source={require("./../assets/IMG_2156.jpeg")}
-            style={styles.albumCoverImage}
-          />
-          <Image
-            source={require("./../assets/IMG_0735.jpeg")}
-            style={styles.albumCoverImage}
-          />
-          <Image
-            source={require("./../assets/IMG_0657.jpeg")}
-            style={styles.albumCoverImage}
-          />
-          {/* <Text style={styles.text}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur
-          </Text> */}
+          <View style={styles.albumCoverContainer}>
+            <Image
+              source={require("./../assets/IMG_2156.jpeg")}
+              style={styles.albumCoverImage}
+              blurRadius={0}
+            />
+            <Text style={styles.title}>Tahoe Trip</Text>
+          </View>
+          <View style={styles.albumCoverContainer}>
+            <Image
+              source={require("./../assets/IMG_0735.jpeg")}
+              style={styles.albumCoverImage}
+              blurRadius={0}
+            />
+            <Text style={styles.title}>Stevens Peak</Text>
+          </View>
+          <View style={styles.albumCoverContainer}>
+            <Image
+              source={require("./../assets/IMG_0657.jpeg")}
+              style={styles.albumCoverImage}
+              blurRadius={0}
+            />
+            <Text style={styles.title}>Lake Pend Oreille</Text>
+          </View>
         </ScrollView>
+        {/* <Text style={styles.pageTitle}>my albums</Text> */}
       </View>
     );
   }
@@ -47,24 +53,37 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "rgba(0,0,0,0.66)",
   },
-  scrollView: {
-    flex: 1,
-    marginTop: 35,
+  pageTitle: {
+    position: "absolute",
+    marginTop: 30,
+    color: "white",
+    fontSize: 21,
+    lineHeight: 21,
+    // backgroundColor: "black",
+    width,
+    textAlign: "center",
   },
-  text: {
+  View: {
     flex: 1,
+    // marginTop: 35,
+  },
+  title: {
+    position: "absolute",
+    top: "50%",
+    width: "100%",
     color: "white",
     fontSize: 42,
     lineHeight: 42,
-    fontWeight: "bold",
+    // fontWeight: "bold",
     textAlign: "center",
   },
   albumCoverImage: {
-    width: Dimensions.get("window").width * 0.75,
-    height: Dimensions.get("window").width * 0.75,
+    width: width * 1,
+    height: height * 1,
     resizeMode: "contain",
     alignSelf: "center",
   },
+  albumCoverContainer: {},
 });
 
 export default AlbumsPage;

@@ -52,7 +52,9 @@ class LandingPage extends Component {
         <View style={styles.cover}>
           <Image
             source={require("./../assets/cover.jpeg")}
+            // source={require("./../assets/IMG_0657.jpeg")}
             style={styles.coverImage}
+            // resizeMode="cover"
           />
           <Text style={styles.text}>Jake Morrissey, 23</Text>
           <View style={styles.albumsPage}>
