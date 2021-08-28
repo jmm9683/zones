@@ -61,7 +61,12 @@ class AlbumsPage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.scrollView}>
+        <ScrollView
+          style={styles.scrollView}
+          decelerationRate={0}
+          snapToInterval={height * 0.5}
+        >
+          <View style={styles.emptySpace}></View>
           <View style={styles.albumCoverContainer}>
             <Carousel
               layout={"stack"}
@@ -98,6 +103,31 @@ class AlbumsPage extends Component {
               inactiveSlideShift={0}
             />
           </View>
+          <View style={styles.albumCoverContainer}>
+            <Carousel
+              layout={"stack"}
+              renderItem={this._renderItem}
+              sliderWidth={width}
+              itemWidth={width}
+              data={ENTRIES1}
+              inactiveSlideOpacity={0.7}
+              inactiveSlideScale={0.9}
+              inactiveSlideShift={0}
+            />
+          </View>
+          <View style={styles.albumCoverContainer}>
+            <Carousel
+              layout={"stack"}
+              renderItem={this._renderItem}
+              sliderWidth={width}
+              itemWidth={width}
+              data={ENTRIES1}
+              inactiveSlideOpacity={0.7}
+              inactiveSlideScale={0.9}
+              inactiveSlideShift={0}
+            />
+          </View>
+          <View style={styles.emptySpace}></View>
           {/* <View style={styles.albumCoverContainer}>
             <Image
               source={require("./../assets/IMG_0735.jpeg")}
@@ -152,12 +182,16 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   albumCoverContainer: {
-    flex: 0.5,
+    flex: 1,
   },
   item: {
     width: width,
-    height: width,
-    // marginTop: "25%",
+    height: height * 0.5,
+    // marginTop: "20%",
+  },
+  emptySpace: {
+    width: width,
+    height: height * 0.25,
   },
   image: {
     height: -1000,
