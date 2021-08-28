@@ -6,26 +6,99 @@ import {
   Dimensions,
   Image,
   ImageBackground,
+  Platform,
 } from "react-native";
-import React, { Component } from "react";
+import Carousel, { Pagination } from "react-native-snap-carousel";
+import React, { Component, useRef, useState, useEffect } from "react";
 // import Image from "react-native-scalable-image";
 
 const { width, height } = Dimensions.get("window");
 
+const ENTRIES1 = [
+  {
+    title: "Nevada",
+    subtitle: "Lorem ipsum dolor sit amet et nuncat mergitur",
+    illustration: "",
+  },
+  {
+    title: "",
+    // subtitle: "Lorem ipsum dolor sit amet",
+    illustration:
+      "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_2156.jpeg",
+    uri: require("./../assets/IMG_2156.jpeg"),
+  },
+  {
+    title: "",
+    // subtitle: "Lorem ipsum dolor sit amet",
+    illustration:
+      "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0735.jpeg",
+    uri: require("./../assets/IMG_0735.jpeg"),
+  },
+  {
+    title: "",
+    // subtitle: "Lorem ipsum dolor sit amet",
+    illustration:
+      "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
+    uri: require("./../assets/IMG_0657.jpeg"),
+  },
+];
+
 class AlbumsPage extends Component {
+  _renderItem({ item, index }, parallaxProps) {
+    return (
+      <View style={styles.item}>
+        <Image
+          source={ENTRIES1[index].uri}
+          style={styles.image}
+          blurRadius={0}
+        />
+        <Text style={styles.title} numberOfLines={2}>
+          {ENTRIES1[index].title}
+        </Text>
+      </View>
+    );
+  }
   render() {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.scrollView}>
           <View style={styles.albumCoverContainer}>
-            <Image
-              source={require("./../assets/IMG_2156.jpeg")}
-              style={styles.albumCoverImage}
-              blurRadius={0}
+            <Carousel
+              layout={"stack"}
+              renderItem={this._renderItem}
+              sliderWidth={width}
+              itemWidth={width}
+              data={ENTRIES1}
+              inactiveSlideOpacity={0.7}
+              inactiveSlideScale={0.9}
+              inactiveSlideShift={0}
             />
-            <Text style={styles.title}>Tahoe Trip</Text>
           </View>
           <View style={styles.albumCoverContainer}>
+            <Carousel
+              layout={"stack"}
+              renderItem={this._renderItem}
+              sliderWidth={width}
+              itemWidth={width}
+              data={ENTRIES1}
+              inactiveSlideOpacity={0.7}
+              inactiveSlideScale={0.9}
+              inactiveSlideShift={0}
+            />
+          </View>
+          <View style={styles.albumCoverContainer}>
+            <Carousel
+              layout={"stack"}
+              renderItem={this._renderItem}
+              sliderWidth={width}
+              itemWidth={width}
+              data={ENTRIES1}
+              inactiveSlideOpacity={0.7}
+              inactiveSlideScale={0.9}
+              inactiveSlideShift={0}
+            />
+          </View>
+          {/* <View style={styles.albumCoverContainer}>
             <Image
               source={require("./../assets/IMG_0735.jpeg")}
               style={styles.albumCoverImage}
@@ -40,9 +113,8 @@ class AlbumsPage extends Component {
               blurRadius={0}
             />
             <Text style={styles.title}>Lake Pend Oreille</Text>
-          </View>
+          </View> */}
         </ScrollView>
-        {/* <Text style={styles.pageTitle}>my albums</Text> */}
       </View>
     );
   }
@@ -63,10 +135,6 @@ const styles = StyleSheet.create({
     width,
     textAlign: "center",
   },
-  View: {
-    flex: 1,
-    // marginTop: 35,
-  },
   title: {
     position: "absolute",
     top: "50%",
@@ -83,7 +151,21 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     alignSelf: "center",
   },
-  albumCoverContainer: {},
+  albumCoverContainer: {
+    flex: 0.5,
+  },
+  item: {
+    width: width,
+    height: width,
+    // marginTop: "25%",
+  },
+  image: {
+    height: -1000,
+    width: -1000,
+    ...StyleSheet.absoluteFillObject,
+    resizeMode: "contain",
+    alignSelf: "center",
+  },
 });
 
 export default AlbumsPage;
