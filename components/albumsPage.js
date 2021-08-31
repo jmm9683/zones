@@ -6,6 +6,9 @@ import {
   Dimensions,
   Image,
   TouchableWithoutFeedback,
+  SafeAreaView,
+  FlatList,
+  TouchableOpacity,
 } from "react-native";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import ImageZoom, { reset } from "react-native-image-pan-zoom";
@@ -14,6 +17,8 @@ import React, { Component } from "react";
 
 const { width, height } = Dimensions.get("window");
 
+let scalarWidth = width * 0.5;
+let scalarHeight = height * 0.25;
 let scrollEnabler = true;
 let scrollFactor = 0.85;
 let emptyScrollFactor = 0.5 * (1 - scrollFactor);
@@ -47,95 +52,158 @@ const ENTRIES1 = [
   },
 ];
 
+const albums = [
+  {
+    title: "Nevada",
+    images: ENTRIES1,
+    id: "1",
+  },
+  {
+    title: "Utah",
+    images: ENTRIES1,
+    id: "2",
+  },
+  {
+    title: "Idaho",
+    images: ENTRIES1,
+    id: "3",
+  },
+  {
+    title: "Idaho",
+    images: ENTRIES1,
+    id: "3",
+  },
+  {
+    title: "Idaho",
+    images: ENTRIES1,
+    id: "3",
+  },
+  {
+    title: "Idaho",
+    images: ENTRIES1,
+    id: "3",
+  },
+  {
+    title: "Idaho",
+    images: ENTRIES1,
+    id: "3",
+  },
+  {
+    title: "Idaho",
+    images: ENTRIES1,
+    id: "3",
+  },
+];
+
+const AlbumItem = ({ item }) => (
+  <TouchableOpacity>
+    <View style={styles.albumCoverContainer}>
+      <Carousel
+        layout={"stack"}
+        renderItem={_renderCarouselItem}
+        sliderWidth={width * 0.5}
+        itemWidth={width * 0.5}
+        data={item.images}
+        inactiveSlideOpacity={0.7}
+        inactiveSlideScale={0.9}
+        inactiveSlideShift={0}
+      />
+    </View>
+    <Text style={styles.title}>{item.title}</Text>
+  </TouchableOpacity>
+);
+const _renderCarouselItem = ({ item, index }, parallaxProps) => {
+  return (
+    <View style={styles.item}>
+      <ImageZoom
+        cropWidth={scalarWidth}
+        cropHeight={scalarHeight}
+        imageWidth={scalarWidth}
+        imageHeight={scalarHeight}
+        panToMove={false}
+        onDoubleClick={() => {
+          ImageZoom.reset;
+        }}
+        onMove={() => {
+          ImageZoom.reset;
+        }}
+      >
+        <Image source={item.uri} style={styles.image} />
+      </ImageZoom>
+      {/* <Text style={styles.title} numberOfLines={2}>
+        {item.title}
+      </Text> */}
+    </View>
+  );
+};
+
 class AlbumsPage extends Component {
-  _renderItem({ item, index }, parallaxProps) {
-    let _onPress = () => () => {
-      // scrollEnabler = !scrollEnabler;
-    };
-    return (
-      <View style={styles.item}>
-        <TouchableWithoutFeedback onPress={_onPress()}>
-          <ImageZoom
-            cropWidth={width}
-            cropHeight={height * 0.85}
-            imageWidth={width}
-            imageHeight={height * 0.85}
-            panToMove={false}
-            onDoubleClick={() => {
-              ImageZoom.reset;
-            }}
-            onMove={() => {
-              ImageZoom.reset;
-            }}
-          >
-            <Image
-              source={ENTRIES1[index].uri}
-              style={styles.image}
-              blurRadius={0}
-            />
-          </ImageZoom>
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={_onPress()}>
-          <Text style={styles.title} numberOfLines={2}>
-            {ENTRIES1[index].title}
-          </Text>
-        </TouchableWithoutFeedback>
-      </View>
-    );
+  renderItem({ item }) {
+    return <AlbumItem item={item} />;
   }
+
   render() {
     return (
-      <View style={styles.container}>
-        <ScrollView
-          style={styles.container}
-          decelerationRate={0}
-          snapToInterval={height * scrollFactor}
-          snapToAlignment="start"
-          scrollEnabled={scrollEnabler}
-          stickyHeaderIndices={[0]}
-        >
-          <View style={[styles.emptySpace, styles.topNav]}>
-            <Text style={[styles.titleTopNav, styles.topNav]}>My Albums</Text>
-          </View>
-          <View style={styles.albumCoverContainer}>
-            <Carousel
-              layout={"stack"}
-              renderItem={this._renderItem}
-              sliderWidth={width}
-              itemWidth={width}
-              data={ENTRIES1}
-              inactiveSlideOpacity={0.7}
-              inactiveSlideScale={0.9}
-              inactiveSlideShift={0}
-            />
-          </View>
-          <View style={styles.albumCoverContainer}>
-            <Carousel
-              layout={"stack"}
-              renderItem={this._renderItem}
-              sliderWidth={width}
-              itemWidth={width}
-              data={ENTRIES1}
-              inactiveSlideOpacity={0.7}
-              inactiveSlideScale={0.9}
-              inactiveSlideShift={0}
-            />
-          </View>
-          <View style={styles.albumCoverContainer}>
-            <Carousel
-              layout={"stack"}
-              renderItem={this._renderItem}
-              sliderWidth={width}
-              itemWidth={width}
-              data={ENTRIES1}
-              inactiveSlideOpacity={0.7}
-              inactiveSlideScale={0.9}
-              inactiveSlideShift={0}
-            />
-          </View>
-          <View style={styles.emptySpace}></View>
-        </ScrollView>
-      </View>
+      <SafeAreaView style={styles.container}>
+        <FlatList
+          data={albums}
+          renderItem={this.renderItem}
+          keyExtractor={(item) => item.id}
+          numColumns={2}
+          initialNumToRender={6}
+        />
+      </SafeAreaView>
+      // <View style={styles.container}>
+      //   <ScrollView
+      //     style={styles.container}
+      //     decelerationRate={0}
+      //     snapToInterval={height * scrollFactor}
+      //     snapToAlignment="start"
+      //     scrollEnabled={scrollEnabler}
+      //     stickyHeaderIndices={[0]}
+      //   >
+      //     <View style={[styles.emptySpace, styles.topNav]}>
+      //       <Text style={[styles.titleTopNav, styles.topNav]}>My Albums</Text>
+      //     </View>
+      //     <View style={styles.albumCoverContainer}>
+      //       <Carousel
+      //         layout={"stack"}
+      //         renderItem={this._renderCarouselItem}
+      //         sliderWidth={width}
+      //         itemWidth={width}
+      //         data={ENTRIES1}
+      //         inactiveSlideOpacity={0.7}
+      //         inactiveSlideScale={0.9}
+      //         inactiveSlideShift={0}
+      //       />
+      //     </View>
+      //     <View style={styles.albumCoverContainer}>
+      //       <Carousel
+      //         layout={"stack"}
+      //         renderItem={this._renderCarouselItem}
+      //         sliderWidth={width}
+      //         itemWidth={width}
+      //         data={ENTRIES1}
+      //         inactiveSlideOpacity={0.7}
+      //         inactiveSlideScale={0.9}
+      //         inactiveSlideShift={0}
+      //       />
+      //     </View>
+      //     <View style={styles.albumCoverContainer}>
+      //       <Carousel
+      //         layout={"stack"}
+      //         renderItem={this._renderCarouselItem}
+      //         sliderWidth={width}
+      //         itemWidth={width}
+      //         data={ENTRIES1}
+      //         inactiveSlideOpacity={0.7}
+      //         inactiveSlideScale={0.9}
+      //         inactiveSlideShift={0}
+      //       />
+      //     </View>
+      //     <View style={styles.emptySpace}></View>
+      //   </ScrollView>
+      // </View>
     );
   }
 }
@@ -160,8 +228,8 @@ const styles = StyleSheet.create({
     top: "50%",
     width: "100%",
     color: "white",
-    fontSize: 42,
-    lineHeight: 42,
+    fontSize: 25,
+    // lineHeight: 42,
     // fontWeight: "bold",
     textAlign: "center",
   },
@@ -169,8 +237,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   item: {
-    width: width,
-    height: height * scrollFactor,
+    width: scalarWidth,
+    height: scalarHeight,
     // marginTop: "20%",
   },
   emptySpace: {
