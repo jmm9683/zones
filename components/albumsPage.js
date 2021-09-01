@@ -10,8 +10,9 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import Carousel, { Pagination } from "react-native-snap-carousel";
-import ImageZoom, { reset } from "react-native-image-pan-zoom";
+import Carousel from "react-native-snap-carousel";
+import ImageZoom from "react-native-image-pan-zoom";
+import { useNavigation } from "@react-navigation/native";
 import React, { Component } from "react";
 // import Image from "react-native-scalable-image";
 
@@ -28,6 +29,7 @@ const ENTRIES1 = [
     title: "Nevada",
     subtitle: "Lorem ipsum dolor sit amet et nuncat mergitur",
     illustration: "",
+    uri: require("./../assets/IMG_2156.jpeg"),
   },
   {
     title: "",
@@ -71,47 +73,52 @@ const albums = [
   {
     title: "Idaho",
     images: ENTRIES1,
-    id: "3",
+    id: "4",
   },
-  {
-    title: "Idaho",
-    images: ENTRIES1,
-    id: "3",
-  },
-  {
-    title: "Idaho",
-    images: ENTRIES1,
-    id: "3",
-  },
-  {
-    title: "Idaho",
-    images: ENTRIES1,
-    id: "3",
-  },
-  {
-    title: "Idaho",
-    images: ENTRIES1,
-    id: "3",
-  },
+  // {
+  //   title: "Idaho",
+  //   images: ENTRIES1,
+  //   id: "5",
+  // },
+  // {
+  //   title: "Idaho",
+  //   images: ENTRIES1,
+  //   id: "6",
+  // },
+  // {
+  //   title: "Idaho",
+  //   images: ENTRIES1,
+  //   id: "7",
+  // },
+  // {
+  //   title: "Idaho",
+  //   images: ENTRIES1,
+  //   id: "8",
+  // },
 ];
 
-const AlbumItem = ({ item }) => (
-  <TouchableOpacity>
-    <View style={styles.albumCoverContainer}>
-      <Carousel
-        layout={"stack"}
-        renderItem={_renderCarouselItem}
-        sliderWidth={width * 0.5}
-        itemWidth={width * 0.5}
-        data={item.images}
-        inactiveSlideOpacity={0.7}
-        inactiveSlideScale={0.9}
-        inactiveSlideShift={0}
-      />
-    </View>
-    <Text style={styles.title}>{item.title}</Text>
-  </TouchableOpacity>
-);
+const AlbumItem = ({ item }) => {
+  let navigation = useNavigation();
+  return (
+    <TouchableOpacity
+      onPress={() => navigation.navigate("Album", { album: item })}
+    >
+      <View style={styles.albumCoverContainer}>
+        <Carousel
+          layout={"stack"}
+          renderItem={_renderCarouselItem}
+          sliderWidth={width * 0.5}
+          itemWidth={width * 0.5}
+          data={item.images}
+          inactiveSlideOpacity={0.7}
+          inactiveSlideScale={0.9}
+          inactiveSlideShift={0}
+        />
+      </View>
+      <Text style={styles.title}>{item.title}</Text>
+    </TouchableOpacity>
+  );
+};
 const _renderCarouselItem = ({ item, index }, parallaxProps) => {
   return (
     <View style={styles.item}>
@@ -130,9 +137,6 @@ const _renderCarouselItem = ({ item, index }, parallaxProps) => {
       >
         <Image source={item.uri} style={styles.image} />
       </ImageZoom>
-      {/* <Text style={styles.title} numberOfLines={2}>
-        {item.title}
-      </Text> */}
     </View>
   );
 };
@@ -153,57 +157,6 @@ class AlbumsPage extends Component {
           initialNumToRender={6}
         />
       </SafeAreaView>
-      // <View style={styles.container}>
-      //   <ScrollView
-      //     style={styles.container}
-      //     decelerationRate={0}
-      //     snapToInterval={height * scrollFactor}
-      //     snapToAlignment="start"
-      //     scrollEnabled={scrollEnabler}
-      //     stickyHeaderIndices={[0]}
-      //   >
-      //     <View style={[styles.emptySpace, styles.topNav]}>
-      //       <Text style={[styles.titleTopNav, styles.topNav]}>My Albums</Text>
-      //     </View>
-      //     <View style={styles.albumCoverContainer}>
-      //       <Carousel
-      //         layout={"stack"}
-      //         renderItem={this._renderCarouselItem}
-      //         sliderWidth={width}
-      //         itemWidth={width}
-      //         data={ENTRIES1}
-      //         inactiveSlideOpacity={0.7}
-      //         inactiveSlideScale={0.9}
-      //         inactiveSlideShift={0}
-      //       />
-      //     </View>
-      //     <View style={styles.albumCoverContainer}>
-      //       <Carousel
-      //         layout={"stack"}
-      //         renderItem={this._renderCarouselItem}
-      //         sliderWidth={width}
-      //         itemWidth={width}
-      //         data={ENTRIES1}
-      //         inactiveSlideOpacity={0.7}
-      //         inactiveSlideScale={0.9}
-      //         inactiveSlideShift={0}
-      //       />
-      //     </View>
-      //     <View style={styles.albumCoverContainer}>
-      //       <Carousel
-      //         layout={"stack"}
-      //         renderItem={this._renderCarouselItem}
-      //         sliderWidth={width}
-      //         itemWidth={width}
-      //         data={ENTRIES1}
-      //         inactiveSlideOpacity={0.7}
-      //         inactiveSlideScale={0.9}
-      //         inactiveSlideShift={0}
-      //       />
-      //     </View>
-      //     <View style={styles.emptySpace}></View>
-      //   </ScrollView>
-      // </View>
     );
   }
 }
@@ -235,6 +188,7 @@ const styles = StyleSheet.create({
   },
   albumCoverContainer: {
     flex: 1,
+    padding: 5,
   },
   item: {
     width: scalarWidth,
