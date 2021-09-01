@@ -12,11 +12,7 @@ import {
 } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import ImageZoom from "react-native-image-pan-zoom";
-import {
-  SharedElement,
-  SharedElementTransition,
-  nodeFromRef,
-} from "react-native-shared-element";
+import { useNavigation } from "@react-navigation/native";
 import React, { Component } from "react";
 // import Image from "react-native-scalable-image";
 
@@ -77,47 +73,52 @@ const albums = [
   {
     title: "Idaho",
     images: ENTRIES1,
-    id: "3",
+    id: "4",
   },
-  {
-    title: "Idaho",
-    images: ENTRIES1,
-    id: "3",
-  },
-  {
-    title: "Idaho",
-    images: ENTRIES1,
-    id: "3",
-  },
-  {
-    title: "Idaho",
-    images: ENTRIES1,
-    id: "3",
-  },
-  {
-    title: "Idaho",
-    images: ENTRIES1,
-    id: "3",
-  },
+  // {
+  //   title: "Idaho",
+  //   images: ENTRIES1,
+  //   id: "5",
+  // },
+  // {
+  //   title: "Idaho",
+  //   images: ENTRIES1,
+  //   id: "6",
+  // },
+  // {
+  //   title: "Idaho",
+  //   images: ENTRIES1,
+  //   id: "7",
+  // },
+  // {
+  //   title: "Idaho",
+  //   images: ENTRIES1,
+  //   id: "8",
+  // },
 ];
 
-const AlbumItem = ({ item }) => (
-  <TouchableOpacity>
-    <View style={styles.albumCoverContainer}>
-      <Carousel
-        layout={"stack"}
-        renderItem={_renderCarouselItem}
-        sliderWidth={width * 0.5}
-        itemWidth={width * 0.5}
-        data={item.images}
-        inactiveSlideOpacity={0.7}
-        inactiveSlideScale={0.9}
-        inactiveSlideShift={0}
-      />
-    </View>
-    <Text style={styles.title}>{item.title}</Text>
-  </TouchableOpacity>
-);
+const AlbumItem = ({ item }) => {
+  let navigation = useNavigation();
+  return (
+    <TouchableOpacity
+      onPress={() => navigation.navigate("Album", { album: item })}
+    >
+      <View style={styles.albumCoverContainer}>
+        <Carousel
+          layout={"stack"}
+          renderItem={_renderCarouselItem}
+          sliderWidth={width * 0.5}
+          itemWidth={width * 0.5}
+          data={item.images}
+          inactiveSlideOpacity={0.7}
+          inactiveSlideScale={0.9}
+          inactiveSlideShift={0}
+        />
+      </View>
+      <Text style={styles.title}>{item.title}</Text>
+    </TouchableOpacity>
+  );
+};
 const _renderCarouselItem = ({ item, index }, parallaxProps) => {
   return (
     <View style={styles.item}>
