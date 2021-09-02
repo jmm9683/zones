@@ -10,8 +10,6 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import Carousel from "react-native-snap-carousel";
-import ImageZoom from "react-native-image-pan-zoom";
 import { useNavigation } from "@react-navigation/native";
 import React, { Component } from "react";
 // import Image from "react-native-scalable-image";
@@ -20,9 +18,6 @@ const { width, height } = Dimensions.get("window");
 
 let scalarWidth = width * 0.5;
 let scalarHeight = height * 0.25;
-let scrollEnabler = true;
-let scrollFactor = 0.85;
-let emptyScrollFactor = 0.5 * (1 - scrollFactor);
 
 const ENTRIES1 = [
   {
@@ -30,6 +25,7 @@ const ENTRIES1 = [
     subtitle: "Lorem ipsum dolor sit amet et nuncat mergitur",
     illustration: "",
     uri: require("./../assets/IMG_2156.jpeg"),
+    id: "1",
   },
   {
     title: "",
@@ -37,6 +33,7 @@ const ENTRIES1 = [
     illustration:
       "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_2156.jpeg",
     uri: require("./../assets/IMG_2156.jpeg"),
+    id: "2",
   },
   {
     title: "",
@@ -44,6 +41,7 @@ const ENTRIES1 = [
     illustration:
       "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0735.jpeg",
     uri: require("./../assets/IMG_0735.jpeg"),
+    id: "3",
   },
   {
     title: "",
@@ -51,6 +49,7 @@ const ENTRIES1 = [
     illustration:
       "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
     uri: require("./../assets/IMG_0657.jpeg"),
+    id: "4",
   },
 ];
 
@@ -75,26 +74,6 @@ const albums = [
     images: ENTRIES1,
     id: "4",
   },
-  // {
-  //   title: "Idaho",
-  //   images: ENTRIES1,
-  //   id: "5",
-  // },
-  // {
-  //   title: "Idaho",
-  //   images: ENTRIES1,
-  //   id: "6",
-  // },
-  // {
-  //   title: "Idaho",
-  //   images: ENTRIES1,
-  //   id: "7",
-  // },
-  // {
-  //   title: "Idaho",
-  //   images: ENTRIES1,
-  //   id: "8",
-  // },
 ];
 
 const AlbumItem = ({ item }) => {
@@ -104,40 +83,12 @@ const AlbumItem = ({ item }) => {
       onPress={() => navigation.navigate("Album", { album: item })}
     >
       <View style={styles.albumCoverContainer}>
-        <Carousel
-          layout={"stack"}
-          renderItem={_renderCarouselItem}
-          sliderWidth={width * 0.5}
-          itemWidth={width * 0.5}
-          data={item.images}
-          inactiveSlideOpacity={0.7}
-          inactiveSlideScale={0.9}
-          inactiveSlideShift={0}
-        />
+        <View style={styles.item}>
+          <Image source={item.images[0].uri} style={styles.image} />
+        </View>
       </View>
       <Text style={styles.title}>{item.title}</Text>
     </TouchableOpacity>
-  );
-};
-const _renderCarouselItem = ({ item, index }, parallaxProps) => {
-  return (
-    <View style={styles.item}>
-      <ImageZoom
-        cropWidth={scalarWidth}
-        cropHeight={scalarHeight}
-        imageWidth={scalarWidth}
-        imageHeight={scalarHeight}
-        panToMove={false}
-        onDoubleClick={() => {
-          ImageZoom.reset;
-        }}
-        onMove={() => {
-          ImageZoom.reset;
-        }}
-      >
-        <Image source={item.uri} style={styles.image} />
-      </ImageZoom>
-    </View>
   );
 };
 
@@ -166,24 +117,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "rgba(0,0,0,0.66)",
   },
-  pageTitle: {
-    position: "absolute",
-    marginTop: 30,
-    color: "white",
-    fontSize: 21,
-    lineHeight: 21,
-    // backgroundColor: "black",
-    width,
-    textAlign: "center",
-  },
   title: {
     position: "absolute",
     top: "50%",
     width: "100%",
     color: "white",
     fontSize: 25,
-    // lineHeight: 42,
-    // fontWeight: "bold",
     textAlign: "center",
   },
   albumCoverContainer: {
@@ -193,11 +132,6 @@ const styles = StyleSheet.create({
   item: {
     width: scalarWidth,
     height: scalarHeight,
-    // marginTop: "20%",
-  },
-  emptySpace: {
-    width: width,
-    height: height * emptyScrollFactor,
   },
   image: {
     height: -1,
@@ -205,17 +139,6 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     resizeMode: "contain",
     alignSelf: "center",
-  },
-  topNav: {
-    backgroundColor: "black",
-  },
-  titleTopNav: {
-    position: "absolute",
-    top: "50%",
-    width: "100%",
-    color: "white",
-    fontSize: 25,
-    textAlign: "center",
   },
 });
 
