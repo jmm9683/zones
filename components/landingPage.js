@@ -66,7 +66,7 @@ class LandingPage extends Component {
                 },
               ]}
             >
-              <AlbumsPage></AlbumsPage>
+              <AlbumsPage navigation={this.props.navigation}></AlbumsPage>
             </Animated.View>
           </View>
         </View>

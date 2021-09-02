@@ -5,7 +5,7 @@ import AlbumsPage from "./components/albumsPage";
 import Album from "./components/album";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
+// import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
