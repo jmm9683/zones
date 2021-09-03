@@ -1,6 +1,6 @@
 # Zones
 
-Zones is a photo and social album building application where you can follow your friends albums and activities.
+Zones is a place to build photo and social albums where you can follow your friends albums and activities.
 
 ## Installation
 
