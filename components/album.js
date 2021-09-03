@@ -2,12 +2,12 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
   Dimensions,
   Image,
   SafeAreaView,
   FlatList,
 } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import Carousel from "react-native-snap-carousel";
 import ImageZoom from "react-native-image-pan-zoom";
 import { useNavigation } from "@react-navigation/native";
@@ -123,19 +123,6 @@ export default function Album(props) {
           );
         }}
       />
-      {/* 
-      <TouchableOpacity
-        style={styles.backButton}
-        onPress={() => navigation.goBack()}
-      >
-        <View style={{ width: 50, height: 50 }}>
-          <Image
-            style={styles.backButton}
-            source={require("./../assets/icons8-back-50.png")}
-            resizeMode={"cover"}
-          ></Image>
-        </View>
-      </TouchableOpacity> */}
       <Text style={styles.title}>{album.title}</Text>
     </SafeAreaView>
   );
@@ -145,7 +132,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignContent: "center",
-    backgroundColor: "rgba(0,0,0,1)",
+    backgroundColor: "rgba(46, 49, 49, 1)",
   },
   title: {
     position: "absolute",
@@ -155,12 +142,26 @@ const styles = StyleSheet.create({
     fontSize: 25,
     textAlign: "center",
   },
-  backButton: {
+  backButtonPosition: {
     position: "absolute",
     top: "4%",
     left: "2%",
+    width: 50,
+    height: 50,
+    backgroundColor: "transparent",
+  },
+  touchableOpacityPosition: {
+    position: "absolute",
+    width: 200,
+    height: 200,
+    top: 0,
+    left: 0,
+    backgroundColor: "transparent",
+  },
+  backButton: {
     height: 25,
     width: 25,
+    backgroundColor: "transparent",
   },
   item: {
     width: scalarWidth,
