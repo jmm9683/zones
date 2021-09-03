@@ -8,7 +8,6 @@ import {
   FlatList,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import Carousel from "react-native-snap-carousel";
 import ImageZoom from "react-native-image-pan-zoom";
 import { useNavigation } from "@react-navigation/native";
 import React, { Component } from "react";
