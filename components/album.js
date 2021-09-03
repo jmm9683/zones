@@ -6,6 +6,7 @@ import {
   Image,
   SafeAreaView,
   FlatList,
+  Platform,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import ImageZoom from "react-native-image-pan-zoom";
@@ -19,10 +20,9 @@ const SPACING = 10;
 
 let scalarWidth = width;
 let scalarHeight = height;
-let scrollEnabler = false;
+let scrollEnabler = true;
 
 export default function Album(props) {
-  let navigation = useNavigation();
   function renderItem({ item }) {
     return (
       <View style={styles.item}>
@@ -51,12 +51,14 @@ export default function Album(props) {
 
   const [activeIndex, setActiveIndex] = React.useState(0);
 
-  const scrollToActiveIndex = (index) => {
+  const scrollToActiveIndex = (index, imageNav) => {
     setActiveIndex(index);
-    imageRef?.current?.scrollToOffset({
-      offset: index * width,
-      animated: true,
-    });
+    if (imageNav) {
+      imageRef?.current?.scrollToOffset({
+        offset: index * width,
+        animated: true,
+      });
+    }
     let activeImageNavPosition =
       index * (IMAGE_SIZE + SPACING) - IMAGE_SIZE / 2;
     let screenWidthCenter = width / 2;
@@ -79,14 +81,19 @@ export default function Album(props) {
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         scrollEnabled={scrollEnabler} //scrolling on ios is buggy and momentumscroll not firing on web
+        style={{
+          flex: 1,
+          height: height,
+          width: width,
+        }}
         onMomentumScrollEnd={(ev) => {
           scrollToActiveIndex(
-            Math.floor(ev.nativeEvent.contentOffset.x / width)
+            Math.floor(ev.nativeEvent.contentOffset.x / width, false)
           );
         }}
-        onScrollEndDrag={(ev) => {
+        onScroll={(ev) => {
           scrollToActiveIndex(
-            Math.floor(ev.nativeEvent.contentOffset.x / width)
+            Math.floor(ev.nativeEvent.contentOffset.x / width, false)
           );
         }}
         renderItem={renderItem}
@@ -106,7 +113,7 @@ export default function Album(props) {
         contentContainerStyle={{ paddingHorizontal: SPACING }}
         renderItem={({ item, index }) => {
           return (
-            <TouchableOpacity onPress={() => scrollToActiveIndex(index)}>
+            <TouchableOpacity onPress={() => scrollToActiveIndex(index, true)}>
               <Image
                 source={item.uri}
                 style={{
@@ -130,7 +137,8 @@ export default function Album(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignContent: "center",
+    width: width,
+    height: height,
     backgroundColor: "rgba(46, 49, 49, 1)",
   },
   title: {
