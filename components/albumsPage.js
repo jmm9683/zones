@@ -51,6 +51,87 @@ const ENTRIES1 = [
     uri: require("./../assets/IMG_0657.jpeg"),
     id: "4",
   },
+  {
+    title: "",
+    // subtitle: "Lorem ipsum dolor sit amet",
+    illustration:
+      "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
+    uri: require("./../assets/IMG_0657.jpeg"),
+    id: "411",
+  },
+  {
+    title: "",
+    // subtitle: "Lorem ipsum dolor sit amet",
+    illustration:
+      "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
+    uri: require("./../assets/IMG_0657.jpeg"),
+    id: "41",
+  },
+  {
+    title: "",
+    // subtitle: "Lorem ipsum dolor sit amet",
+    illustration:
+      "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
+    uri: require("./../assets/IMG_0657.jpeg"),
+    id: "42",
+  },
+  {
+    title: "",
+    // subtitle: "Lorem ipsum dolor sit amet",
+    illustration:
+      "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
+    uri: require("./../assets/IMG_0657.jpeg"),
+    id: "43",
+  },
+  {
+    title: "",
+    // subtitle: "Lorem ipsum dolor sit amet",
+    illustration:
+      "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
+    uri: require("./../assets/IMG_0657.jpeg"),
+    id: "44",
+  },
+  {
+    title: "",
+    // subtitle: "Lorem ipsum dolor sit amet",
+    illustration:
+      "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
+    uri: require("./../assets/IMG_0657.jpeg"),
+    id: "45",
+  },
+  {
+    title: "",
+    // subtitle: "Lorem ipsum dolor sit amet",
+    illustration:
+      "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
+    uri: require("./../assets/IMG_0657.jpeg"),
+    id: "46",
+  },
+  {
+    title: "",
+    // subtitle: "Lorem ipsum dolor sit amet",
+    illustration:
+      "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
+    uri: require("./../assets/IMG_0657.jpeg"),
+    id: "47",
+  },
+  {
+    title: "",
+    // subtitle: "Lorem ipsum dolor sit amet",
+    illustration:
+      "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
+    uri: require("./../assets/IMG_0657.jpeg"),
+    id: "48",
+  },
+  {
+    title: "",
+    // subtitle: "Lorem ipsum dolor sit amet",
+    illustration:
+      "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
+    uri: require("./../assets/IMG_0657.jpeg"),
+    id: "49",
+  },
+  
 ];
 
 const albums = [

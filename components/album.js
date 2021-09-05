@@ -17,6 +17,7 @@ const { width, height } = Dimensions.get("window");
 
 const IMAGE_SIZE = 30;
 const SPACING = 10;
+const isWeb = (Platform.OS != "android" || Platform.OS != "iOS")
 
 let scalarWidth = width;
 let scalarHeight = height;
@@ -33,9 +34,6 @@ export default function Album(props) {
           imageHeight={scalarHeight}
           panToMove={false}
           onDoubleClick={() => {
-            ImageZoom.reset;
-          }}
-          onMove={() => {
             ImageZoom.reset;
           }}
         >
@@ -62,10 +60,10 @@ export default function Album(props) {
     let activeImageNavPosition =
       index * (IMAGE_SIZE + SPACING) - IMAGE_SIZE / 2;
     let screenWidthCenter = width / 2;
-    if (activeImageNavPosition > screenWidthCenter) {
-      console.log(activeImageNavPosition);
+    if (activeImageNavPosition > screenWidthCenter || true) {
       imageNavRef?.current?.scrollToOffset({
-        offset: activeImageNavPosition + IMAGE_SIZE / 2,
+        // offset: activeImageNavPosition + IMAGE_SIZE,
+        offset: activeImageNavPosition,
         animated: true,
       });
     }
@@ -80,11 +78,9 @@ export default function Album(props) {
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
-        scrollEnabled={scrollEnabler} //scrolling on ios is buggy and momentumscroll not firing on web
+        scrollEnabled={scrollEnabler}
         style={{
-          flex: 1,
-          height: height,
-          width: width,
+          flex: 1
         }}
         onMomentumScrollEnd={(ev) => {
           scrollToActiveIndex(
@@ -107,10 +103,15 @@ export default function Album(props) {
         style={{
           position: "absolute",
           bottom: IMAGE_SIZE,
-          alignSelf: "center",
+          ...Platform.select({
+            web: {
+              width: width
+            }, 
+            default: {}
+          })
         }}
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: SPACING }}
+        contentContainerStyle={{ paddingHorizontal: SPACING}}
         renderItem={({ item, index }) => {
           return (
             <TouchableOpacity onPress={() => scrollToActiveIndex(index, true)}>
@@ -119,10 +120,10 @@ export default function Album(props) {
                 style={{
                   width: IMAGE_SIZE,
                   height: IMAGE_SIZE,
-                  borderRadius: IMAGE_SIZE,
+                  borderRadius: IMAGE_SIZE/4,
                   marginRight: SPACING,
                   borderWidth: 2,
-                  borderColor: activeIndex === index ? "#fff" : "transparent",
+                  borderColor: activeIndex === index ? "white" : "transparent",
                 }}
               />
             </TouchableOpacity>
@@ -137,8 +138,6 @@ export default function Album(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: width,
-    height: height,
     backgroundColor: "rgba(46, 49, 49, 1)",
   },
   title: {
@@ -149,28 +148,8 @@ const styles = StyleSheet.create({
     fontSize: 25,
     textAlign: "center",
   },
-  backButtonPosition: {
-    position: "absolute",
-    top: "4%",
-    left: "2%",
-    width: 50,
-    height: 50,
-    backgroundColor: "transparent",
-  },
-  touchableOpacityPosition: {
-    position: "absolute",
-    width: 200,
-    height: 200,
-    top: 0,
-    left: 0,
-    backgroundColor: "transparent",
-  },
-  backButton: {
-    height: 25,
-    width: 25,
-    backgroundColor: "transparent",
-  },
   item: {
+    alignSelf: 'flex-end',
     width: scalarWidth,
     height: scalarHeight,
   },
@@ -178,6 +157,5 @@ const styles = StyleSheet.create({
     height: height,
     width: width,
     resizeMode: "contain",
-    alignSelf: "center",
   },
 });
