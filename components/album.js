@@ -112,13 +112,14 @@ export default function Album(props) {
           bottom: IMAGE_SIZE,
           ...Platform.select({
             web: {
-              width: width,
+              width: "50%",
+              left: "25%"
             },
             default: {},
           }),
         }}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: SPACING }}
+        showsHorizontalScrollIndicator={isWeb}
+        contentContainerStyle={{ paddingHorizontal: SPACING, justifyContent: "center" }}
         renderItem={({ item, index }) => {
           return (
             <TouchableOpacity onPress={() => scrollToActiveIndex(index, true)}>
@@ -145,7 +146,8 @@ export default function Album(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(46, 49, 49, 1)",
+    // backgroundColor: "rgba(46, 49, 49, 1)",
+    backgroundColor: "rgba(0, 0, 0, 1)"
   },
   title: {
     position: "absolute",
