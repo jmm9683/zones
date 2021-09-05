@@ -17,7 +17,7 @@ const { width, height } = Dimensions.get("window");
 
 const IMAGE_SIZE = 30;
 const SPACING = 10;
-const isWeb = (Platform.OS != "android" || Platform.OS != "iOS")
+const isWeb = Platform.OS != "android" || Platform.OS != "iOS";
 
 let scalarWidth = width;
 let scalarHeight = height;
@@ -60,13 +60,20 @@ export default function Album(props) {
     let activeImageNavPosition =
       index * (IMAGE_SIZE + SPACING) - IMAGE_SIZE / 2;
     let screenWidthCenter = width / 2;
-    if (activeImageNavPosition > screenWidthCenter || true) {
-      imageNavRef?.current?.scrollToOffset({
-        // offset: activeImageNavPosition + IMAGE_SIZE,
-        offset: activeImageNavPosition,
+    // if (activeImageNavPosition > screenWidthCenter || true) {
+    // imageNavRef?.current?.scrollToOffset({
+    //   // offset: activeImageNavPosition + IMAGE_SIZE,
+    //   offset: activeImageNavPosition,
+    //   animated: true,
+    // });
+    if (index >= 0) {
+      imageNavRef?.current?.scrollToIndex({
         animated: true,
+        index: index,
+        viewPosition: 0.5,
       });
     }
+    // }
   };
 
   return (
@@ -80,7 +87,7 @@ export default function Album(props) {
         showsHorizontalScrollIndicator={false}
         scrollEnabled={scrollEnabler}
         style={{
-          flex: 1
+          flex: 1,
         }}
         onMomentumScrollEnd={(ev) => {
           scrollToActiveIndex(
@@ -105,13 +112,13 @@ export default function Album(props) {
           bottom: IMAGE_SIZE,
           ...Platform.select({
             web: {
-              width: width
-            }, 
-            default: {}
-          })
+              width: width,
+            },
+            default: {},
+          }),
         }}
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: SPACING}}
+        contentContainerStyle={{ paddingHorizontal: SPACING }}
         renderItem={({ item, index }) => {
           return (
             <TouchableOpacity onPress={() => scrollToActiveIndex(index, true)}>
@@ -120,7 +127,7 @@ export default function Album(props) {
                 style={{
                   width: IMAGE_SIZE,
                   height: IMAGE_SIZE,
-                  borderRadius: IMAGE_SIZE/4,
+                  borderRadius: IMAGE_SIZE / 4,
                   marginRight: SPACING,
                   borderWidth: 2,
                   borderColor: activeIndex === index ? "white" : "transparent",
@@ -149,7 +156,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   item: {
-    alignSelf: 'flex-end',
+    alignSelf: "flex-end",
     width: scalarWidth,
     height: scalarHeight,
   },

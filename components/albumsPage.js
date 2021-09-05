@@ -50,7 +50,103 @@ const ENTRIES1 = [
       "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
     uri: require("./../assets/IMG_0657.jpeg"),
     id: "4",
-  }
+  },
+  // {
+  //   title: "",
+  //   // subtitle: "Lorem ipsum dolor sit amet",
+  //   illustration:
+  //     "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
+  //   uri: require("./../assets/IMG_0657.jpeg"),
+  //   id: "41",
+  // },
+  // {
+  //   title: "",
+  //   // subtitle: "Lorem ipsum dolor sit amet",
+  //   illustration:
+  //     "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
+  //   uri: require("./../assets/IMG_0657.jpeg"),
+  //   id: "411",
+  // },
+  // {
+  //   title: "",
+  //   // subtitle: "Lorem ipsum dolor sit amet",
+  //   illustration:
+  //     "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
+  //   uri: require("./../assets/IMG_0657.jpeg"),
+  //   id: "41111",
+  // },
+  // {
+  //   title: "",
+  //   // subtitle: "Lorem ipsum dolor sit amet",
+  //   illustration:
+  //     "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
+  //   uri: require("./../assets/IMG_0657.jpeg"),
+  //   id: "411111",
+  // },
+  // {
+  //   title: "",
+  //   // subtitle: "Lorem ipsum dolor sit amet",
+  //   illustration:
+  //     "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
+  //   uri: require("./../assets/IMG_0657.jpeg"),
+  //   id: "4111111",
+  // },
+  // {
+  //   title: "",
+  //   // subtitle: "Lorem ipsum dolor sit amet",
+  //   illustration:
+  //     "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
+  //   uri: require("./../assets/IMG_0657.jpeg"),
+  //   id: "41111111",
+  // },
+  // {
+  //   title: "",
+  //   // subtitle: "Lorem ipsum dolor sit amet",
+  //   illustration:
+  //     "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
+  //   uri: require("./../assets/IMG_0657.jpeg"),
+  //   id: "411111111",
+  // },
+  // {
+  //   title: "",
+  //   // subtitle: "Lorem ipsum dolor sit amet",
+  //   illustration:
+  //     "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
+  //   uri: require("./../assets/IMG_0657.jpeg"),
+  //   id: "4111111111",
+  // },
+  // {
+  //   title: "",
+  //   // subtitle: "Lorem ipsum dolor sit amet",
+  //   illustration:
+  //     "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
+  //   uri: require("./../assets/IMG_0657.jpeg"),
+  //   id: "41111111111",
+  // },
+  // {
+  //   title: "",
+  //   // subtitle: "Lorem ipsum dolor sit amet",
+  //   illustration:
+  //     "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
+  //   uri: require("./../assets/IMG_0657.jpeg"),
+  //   id: "411111111111",
+  // },
+  // {
+  //   title: "",
+  //   // subtitle: "Lorem ipsum dolor sit amet",
+  //   illustration:
+  //     "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
+  //   uri: require("./../assets/IMG_0657.jpeg"),
+  //   id: "4111111111111",
+  // },
+  // {
+  //   title: "",
+  //   // subtitle: "Lorem ipsum dolor sit amet",
+  //   illustration:
+  //     "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
+  //   uri: require("./../assets/IMG_0657.jpeg"),
+  //   id: "41111111111111",
+  // },
 ];
 
 const albums = [
