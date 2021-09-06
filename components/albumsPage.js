@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
       height: 3,
     },
     shadowOpacity: 0.29,
-    shadowRadius: 4.65
+    shadowRadius: 4.65,
   },
 });
 

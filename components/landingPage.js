@@ -7,7 +7,9 @@ import {
   Animated,
   Button,
 } from "react-native";
-import { StatusBar } from "expo-status-bar";
+import GestureRecognizer, {
+  swipeDirections,
+} from "react-native-swipe-gestures";
 import React, { Component } from "react";
 import Banner from "./banner";
 import AlbumsPage from "./albumsPage";
@@ -34,7 +36,7 @@ class LandingPage extends Component {
       duration: 500,
       useNativeDriver: true,
     }).start();
-    this.state.showAlbums = false;
+    this.setState({ showAlbums: false });
   };
 
   fadeOut = () => {
@@ -43,21 +45,24 @@ class LandingPage extends Component {
       duration: 250,
       useNativeDriver: true,
     }).start();
-    this.state.showAlbums = true;
+    this.setState({ showAlbums: true });
   };
 
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.cover}>
-          <Image
-            source={require("./../assets/cover.jpeg")}
-            // source={require("./../assets/IMG_0657.jpeg")}
-            style={styles.coverImage}
-            // resizeMode="cover"
-          />
+          <GestureRecognizer style={{ flex: 1 }} onSwipeUp={this.fadeInOut}>
+            <Image
+              source={require("./../assets/cover.jpeg")}
+              style={styles.coverImage}
+            />
+          </GestureRecognizer>
           <Text style={styles.text}>Jake Morrissey, 23</Text>
-          <View style={styles.albumsPage}>
+          <View
+            style={styles.albumsPage}
+            pointerEvents={this.state.showAlbums ? "none" : "auto"}
+          >
             <Animated.View
               style={[
                 styles.fadingContainer,

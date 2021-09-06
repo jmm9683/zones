@@ -23,16 +23,17 @@
     "react-native-gesture-handler": "~1.10.2",
     "react-native-image-pan-zoom": "^2.1.12",
     "react-native-reanimated": "~2.2.0",
+    "react-native-safe-area-context": "3.2.0",
     "react-native-scalable-image": "^1.1.0",
     "react-native-screens": "~3.4.0",
     "react-native-shared-element": "^0.8.2",
+    "react-native-swipe-gestures": "^1.0.5",
     "react-native-web": "~0.13.12",
     "react-native-web-swiper": "^2.2.1",
     "react-navigation": "^4.4.4",
     "react-navigation-shared-element": "^5.0.0-alpha1",
     "react-navigation-stack": "^2.10.4",
-    "yarn": "^1.22.11",
-    "react-native-safe-area-context": "3.2.0"
+    "yarn": "^1.22.11"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"
