@@ -256,11 +256,14 @@ const styles = StyleSheet.create({
   },
   title: {
     position: "absolute",
-    top: "50%",
-    width: "100%",
+    top: "0%",
+    width: "75%",
     color: "white",
     fontSize: 25,
+    alignSelf: "center",
     textAlign: "center",
+    backgroundColor: "rgba(0,0,0,0.25)",
+
   },
   albumCoverContainer: {
     flex: 3,
