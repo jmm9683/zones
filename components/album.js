@@ -7,10 +7,11 @@ import {
   SafeAreaView,
   FlatList,
   Platform,
+  Animated,
+  TouchableWithoutFeedback,
+  TouchableOpacity
 } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import ImageZoom from "react-native-image-pan-zoom";
-import { useNavigation } from "@react-navigation/native";
 import React, { Component } from "react";
 
 const { width, height } = Dimensions.get("window");
@@ -24,22 +25,72 @@ let scalarHeight = height;
 let scrollEnabler = true;
 
 export default function Album(props) {
+  const fadeAnimation = React.useRef(new Animated.Value(0)).current;
+  let showDescription = React.useRef(true).current;
+  const fadeInOut = () => {
+    if (showDescription) {
+      fadeIn();
+    } else {
+      fadeOut();
+    }
+  };
+
+  const fadeIn = () => {
+    Animated.timing(fadeAnimation, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+    showDescription = false;
+  };
+
+  const fadeOut = () => {
+    Animated.timing(fadeAnimation, {
+      toValue: 0,
+      duration: 250,
+      useNativeDriver: true,
+    }).start();
+    showDescription = true;
+  };
+
+  
+
+
   function renderItem({ item }) {
     return (
-      <View style={styles.item}>
-        <ImageZoom
-          cropWidth={scalarWidth}
-          cropHeight={scalarHeight}
-          imageWidth={scalarWidth}
-          imageHeight={scalarHeight}
-          panToMove={false}
-          onDoubleClick={() => {
-            ImageZoom.reset;
-          }}
-        >
-          <Image source={item.uri} style={styles.image} />
-        </ImageZoom>
-      </View>
+        <View style={styles.item}>
+          <ImageZoom
+            cropWidth={scalarWidth}
+            cropHeight={scalarHeight}
+            imageWidth={scalarWidth}
+            imageHeight={scalarHeight}
+            panToMove={false}
+            onDoubleClick={() => {
+              ImageZoom.reset;
+            }}
+          >
+            <TouchableWithoutFeedback onPressIn={fadeInOut} onPressOut={fadeInOut} onPress={fadeInOut}>
+              <Image source={item.uri} style={styles.image} />
+            </TouchableWithoutFeedback>
+          </ImageZoom>
+          <View
+              style={styles.descriptionView}
+              pointerEvents={showDescription ? "none" : "auto"}
+            >
+              <Animated.View
+                style={[
+                  styles.description,
+                  {
+                    opacity: fadeAnimation,
+                  },
+                ]}
+              >
+                          <Text style={styles.imageTitle}>{item.title}</Text>
+                          <Text style={styles.imageSubtitle}>{item.subtitle}</Text>
+              </Animated.View>
+            </View>
+
+        </View>
     );
   }
 
@@ -57,15 +108,6 @@ export default function Album(props) {
         animated: true,
       });
     }
-    let activeImageNavPosition =
-      index * (IMAGE_SIZE + SPACING) - IMAGE_SIZE / 2;
-    let screenWidthCenter = width / 2;
-    // if (activeImageNavPosition > screenWidthCenter || true) {
-    // imageNavRef?.current?.scrollToOffset({
-    //   // offset: activeImageNavPosition + IMAGE_SIZE,
-    //   offset: activeImageNavPosition,
-    //   animated: true,
-    // });
     if (index >= 0) {
       imageNavRef?.current?.scrollToIndex({
         animated: true,
@@ -73,7 +115,6 @@ export default function Album(props) {
         viewPosition: 0.5,
       });
     }
-    // }
   };
 
   return (
@@ -167,4 +208,34 @@ const styles = StyleSheet.create({
     width: width,
     resizeMode: "contain",
   },
+  descriptionView: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+  },
+  description:{
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0, 0, 0, 0.7)"
+  },
+  imageTitle:{
+    position: "absolute",
+    top: "50%",
+    width: "100%",
+    color: "white",
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "left",
+    paddingLeft: 5
+  },
+  imageSubtitle:{
+    position: "absolute",
+    top: "55%",
+    width: "100%",
+    color: "white",
+    fontSize: 15,
+    textAlign: "left",
+    paddingLeft: 15
+  }
 });

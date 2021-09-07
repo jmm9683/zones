@@ -16,21 +16,21 @@ import React, { Component } from "react";
 
 const { width, height } = Dimensions.get("window");
 
-let scalarWidth = width * 0.5;
+let scalarWidth = width/3;
 let scalarHeight = height * 0.25;
 const IMAGE_SIZE = 30;
 const SPACING = 10;
 const ENTRIES = [
   {
-    title: "Nevada",
+    title: "Test",
     subtitle: "Lorem ipsum dolor sit amet et nuncat mergitur",
     illustration: "",
     uri: require("./../assets/IMG_2156.jpeg"),
     id: "1",
   },
   {
-    title: "",
-    // subtitle: "Lorem ipsum dolor sit amet",
+    title: "Test",
+    subtitle: "Lorem ipsum dolor sit amet",
     illustration:
       "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0735.jpeg",
     uri: require("./../assets/IMG_0735.jpeg"),
@@ -39,119 +39,119 @@ const ENTRIES = [
 ];
 const ENTRIES1 = [
   {
-    title: "Nevada",
+    title: "Test",
     subtitle: "Lorem ipsum dolor sit amet et nuncat mergitur",
     illustration: "",
     uri: require("./../assets/IMG_2156.jpeg"),
     id: "1",
   },
   {
-    title: "",
-    // subtitle: "Lorem ipsum dolor sit amet",
+    title: "Test",
+    subtitle: "Lorem ipsum dolor sit amet",
     illustration:
       "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0735.jpeg",
     uri: require("./../assets/IMG_0735.jpeg"),
     id: "3",
   },
   {
-    title: "",
-    // subtitle: "Lorem ipsum dolor sit amet",
+    title: "Test",
+    subtitle: "Lorem ipsum dolor sit amet",
     illustration:
       "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
     uri: require("./../assets/IMG_0657.jpeg"),
     id: "4",
   },
   {
-    title: "",
-    // subtitle: "Lorem ipsum dolor sit amet",
+    title: "Test",
+    subtitle: "Lorem ipsum dolor sit amet",
     illustration:
       "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
     uri: require("./../assets/IMG_0657.jpeg"),
     id: "41",
   },
   {
-    title: "",
-    // subtitle: "Lorem ipsum dolor sit amet",
+    title: "Test",
+    subtitle: "Lorem ipsum dolor sit amet",
     illustration:
       "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
     uri: require("./../assets/IMG_0657.jpeg"),
     id: "411",
   },
   {
-    title: "",
-    // subtitle: "Lorem ipsum dolor sit amet",
+    title: "Test",
+    subtitle: "Lorem ipsum dolor sit amet",
     illustration:
       "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
     uri: require("./../assets/IMG_0657.jpeg"),
     id: "41111",
   },
   {
-    title: "",
-    // subtitle: "Lorem ipsum dolor sit amet",
+    title: "Test",
+    subtitle: "Lorem ipsum dolor sit amet",
     illustration:
       "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
     uri: require("./../assets/IMG_0657.jpeg"),
     id: "411111",
   },
   {
-    title: "",
-    // subtitle: "Lorem ipsum dolor sit amet",
+    title: "Test",
+    subtitle: "Lorem ipsum dolor sit amet",
     illustration:
       "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
     uri: require("./../assets/IMG_0657.jpeg"),
     id: "4111111",
   },
   {
-    title: "",
-    // subtitle: "Lorem ipsum dolor sit amet",
+    title: "Test",
+    subtitle: "Lorem ipsum dolor sit amet",
     illustration:
       "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
     uri: require("./../assets/IMG_0657.jpeg"),
     id: "41111111",
   },
   {
-    title: "",
-    // subtitle: "Lorem ipsum dolor sit amet",
+    title: "Test",
+    subtitle: "Lorem ipsum dolor sit amet",
     illustration:
       "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
     uri: require("./../assets/IMG_0657.jpeg"),
     id: "411111111",
   },
   {
-    title: "",
-    // subtitle: "Lorem ipsum dolor sit amet",
+    title: "Test",
+    subtitle: "Lorem ipsum dolor sit amet",
     illustration:
       "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
     uri: require("./../assets/IMG_0657.jpeg"),
     id: "4111111111",
   },
   {
-    title: "",
-    // subtitle: "Lorem ipsum dolor sit amet",
+    title: "Test",
+    subtitle: "Lorem ipsum dolor sit amet",
     illustration:
       "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
     uri: require("./../assets/IMG_0657.jpeg"),
     id: "41111111111",
   },
   {
-    title: "",
-    // subtitle: "Lorem ipsum dolor sit amet",
+    title: "Test",
+    subtitle: "Lorem ipsum dolor sit amet",
     illustration:
       "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
     uri: require("./../assets/IMG_0657.jpeg"),
     id: "411111111111",
   },
   {
-    title: "",
-    // subtitle: "Lorem ipsum dolor sit amet",
+    title: "Test",
+    subtitle: "Lorem ipsum dolor sit amet",
     illustration:
       "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
     uri: require("./../assets/IMG_0657.jpeg"),
     id: "4111111111111",
   },
   {
-    title: "",
-    // subtitle: "Lorem ipsum dolor sit amet",
+    title: "Test",
+    subtitle: "Lorem ipsum dolor sit amet",
     illustration:
       "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
     uri: require("./../assets/IMG_0657.jpeg"),
@@ -191,11 +191,10 @@ const AlbumItem = ({ item }) => {
       <View style={styles.albumCoverContainer}>
         <View style={styles.item}>
           <FlatList
-            data={item.images.slice(0,9)}
+            data={item.images.slice(0,6)}
             keyExtractor={(item) => item.id}
             style={styles.item}
             numColumns={3}
-            showsHorizontalScrollIndicator={false}
             contentContainerStyle={{ paddingHorizontal: SPACING, justifyContent: "center" }}
             renderItem={({ item }) => {
               return (
@@ -205,7 +204,7 @@ const AlbumItem = ({ item }) => {
                       height: scalarWidth/3,
                       width: scalarWidth/3,
                       flex: 1,
-                      // aspectRatio:1,
+                      aspectRatio:1,
                       resizeMode:'cover',
                       shadowColor: "#000",
                       shadowOffset: {
@@ -267,7 +266,7 @@ const styles = StyleSheet.create({
   },
   albumCoverContainer: {
     flex: 3,
-    padding: 50
+    paddingTop: 30
   },
   item: {
     width: scalarWidth,
