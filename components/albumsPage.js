@@ -36,6 +36,14 @@ const ENTRIES = [
     uri: require("./../assets/IMG_0735.jpeg"),
     id: "3",
   },
+  {
+    title: "Test",
+    subtitle: "Lorem ipsum dolor sit amet",
+    illustration:
+      "file:///Users/jakemorrissey/Documents/WebDevTraining/zones/assets/IMG_0657.jpeg",
+    uri: require("./../assets/IMG_0657.jpeg"),
+    id: "4",
+  },
 ];
 const ENTRIES1 = [
   {
@@ -273,7 +281,7 @@ const styles = StyleSheet.create({
     width: scalarWidth * 0.9,
     alignSelf: "center",
     // aspectRatio: 1,
-    // resizeMode: "cover",
+    resizeMode: "contain",
     borderWidth: 5,
     borderColor: "white",
   },
