@@ -16,7 +16,7 @@ import React, { Component } from "react";
 
 const { width, height } = Dimensions.get("window");
 
-let scalarWidth = width/3;
+let scalarWidth = width / 2;
 let scalarHeight = height * 0.25;
 const IMAGE_SIZE = 30;
 const SPACING = 10;
@@ -190,37 +190,29 @@ const AlbumItem = ({ item }) => {
     >
       <View style={styles.albumCoverContainer}>
         <View style={styles.item}>
-          <FlatList
-            data={item.images.slice(0,6)}
-            keyExtractor={(item) => item.id}
-            style={styles.item}
-            numColumns={3}
-            contentContainerStyle={{ paddingHorizontal: SPACING, justifyContent: "center" }}
-            renderItem={({ item }) => {
-              return (
-                  <Image
-                    source={item.uri}
-                    style={{
-                      height: scalarWidth/3,
-                      width: scalarWidth/3,
-                      flex: 1,
-                      aspectRatio:1,
-                      resizeMode:'cover',
-                      shadowColor: "#000",
-                      shadowOffset: {
-                        width: 0,
-                        height: 3,
-                      },
-                      shadowOpacity: 0.29,
-                      shadowRadius: 4.65,
-                      borderWidth: 2,
-                      borderColor: "black",
-                      borderRadius: 10
-                    }}
-              />
-          );
-        }}
-      />
+          <View
+            style={[
+              styles.shadow,
+              styles.backgroundCard,
+              {
+                left: "2%",
+                top: "3%",
+              },
+            ]}
+          />
+          <View
+            style={[
+              styles.shadow,
+              styles.backgroundCard,
+              {
+                left: "1%",
+                top: "4%",
+              },
+            ]}
+          />
+          <View style={styles.shadow}>
+            <Image source={item.images[0].uri} style={styles.image} />
+          </View>
         </View>
       </View>
       <Text style={styles.title}>{item.title}</Text>
@@ -230,7 +222,7 @@ const AlbumItem = ({ item }) => {
 
 class AlbumsPage extends Component {
   renderItem({ item }) {
-    return <AlbumItem item={item}/>;
+    return <AlbumItem item={item} />;
   }
 
   render() {
@@ -255,41 +247,51 @@ const styles = StyleSheet.create({
   },
   title: {
     position: "absolute",
-    top: "0%",
-    width: "75%",
+    top: "50%",
     color: "white",
+    fontFamily: "System",
     fontSize: 25,
+    fontWeight: "400",
     alignSelf: "center",
     textAlign: "center",
-    backgroundColor: "rgba(0,0,0,0.25)",
-
   },
   albumCoverContainer: {
-    flex: 3,
-    paddingTop: 30
+    flex: 1,
+    height: scalarWidth,
+    width: scalarWidth,
+    justifyContent: "center",
+    alignSelf: "center",
+    // paddingBottom: 50,
   },
   item: {
-    width: scalarWidth,
-    height: scalarHeight,
-    flex: 3,
-    alignSelf: "center"
+    flex: 1,
+    justifyContent: "center",
+    alignSelf: "center",
   },
   image: {
-    height: "100%",
-    width: "100%",
-    ...StyleSheet.absoluteFillObject,
-    resizeMode: "contain",
+    height: scalarWidth * 0.9,
+    width: scalarWidth * 0.9,
     alignSelf: "center",
+    // aspectRatio: 1,
+    // resizeMode: "cover",
+    borderWidth: 5,
+    borderColor: "white",
+  },
+  backgroundCard: {
+    position: "absolute",
+    width: scalarWidth * 0.9,
+    height: scalarWidth * 0.9,
+    backgroundColor: "white",
+  },
+  shadow: {
     shadowColor: "#000",
     shadowOffset: {
-      width: 0,
-      height: 3,
+      width: 1,
+      height: -1,
     },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-    borderWidth: 2,
-    borderColor: "black",
-    borderRadius: 25
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    backgroundColor: "white",
   },
 });
 
