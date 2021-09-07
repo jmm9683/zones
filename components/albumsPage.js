@@ -16,7 +16,7 @@ import React, { Component } from "react";
 
 const { width, height } = Dimensions.get("window");
 
-let scalarWidth = width / 3;
+let scalarWidth = width / 2;
 let scalarHeight = height * 0.25;
 const IMAGE_SIZE = 30;
 const SPACING = 10;
@@ -195,8 +195,8 @@ const AlbumItem = ({ item }) => {
               styles.shadow,
               styles.backgroundCard,
               {
-                left: "5%",
-                top: 0,
+                left: "2%",
+                top: "3%",
               },
             ]}
           />
@@ -205,8 +205,8 @@ const AlbumItem = ({ item }) => {
               styles.shadow,
               styles.backgroundCard,
               {
-                left: "2.5%",
-                top: "1%",
+                left: "1%",
+                top: "4%",
               },
             ]}
           />
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
     top: "50%",
     color: "white",
     fontFamily: "System",
-    fontSize: 40,
+    fontSize: 25,
     fontWeight: "400",
     alignSelf: "center",
     textAlign: "center",
@@ -274,23 +274,23 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     // aspectRatio: 1,
     // resizeMode: "cover",
+    borderWidth: 5,
     borderColor: "white",
   },
   backgroundCard: {
     position: "absolute",
-    width: scalarWidth * 0.95,
-    height: "95%",
+    width: scalarWidth * 0.9,
+    height: scalarWidth * 0.9,
+    backgroundColor: "white",
   },
   shadow: {
     shadowColor: "#000",
     shadowOffset: {
-      width: 3,
-      height: -3,
+      width: 1,
+      height: -1,
     },
     shadowOpacity: 0.5,
-    shadowRadius: 4.65,
-    borderWidth: 10,
-    borderColor: "white",
+    shadowRadius: 2,
     backgroundColor: "white",
   },
 });
