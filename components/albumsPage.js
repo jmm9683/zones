@@ -5,20 +5,21 @@ import {
   ScrollView,
   Dimensions,
   Image,
-  TouchableWithoutFeedback,
+  Animated,
   SafeAreaView,
   FlatList,
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import React, { Component } from "react";
+import { interpolate } from "react-native-reanimated";
 // import Image from "react-native-scalable-image";
 
 const { width, height } = Dimensions.get("window");
 
-let scalarWidth = width / 2;
-let scalarHeight = height * 0.25;
-const IMAGE_SIZE = 30;
+const scalarWidth = width / 2;
+const scalarHeight = height * 0.25;
+const IMAGE_SIZE = scalarWidth * 0.9 + 2*SPACING;
 const SPACING = 10;
 const ENTRIES = [
   {
@@ -190,11 +191,11 @@ const albums = [
   },
 ];
 
-const AlbumItem = ({ item }) => {
+const AlbumItem = ({ item, index, y }) => {
   let navigation = useNavigation();
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("Album", { album: item })} style={{margin: "2%"}}
+      onPress={() => navigation.navigate("Album", { album: item })} style={{margin: SPACING}}
     >
       <View style={styles.albumCoverContainer}>
         <View style={styles.item}>
@@ -231,23 +232,23 @@ const AlbumItem = ({ item }) => {
             <Image source={item.images[0].uri} style={styles.image} />
           </View>
         </View>
+        <Text style={styles.title}>{item.title}</Text>
       </View>
-      <Text style={styles.title}>{item.title}</Text>
+
     </TouchableOpacity>
   );
 };
 
 class AlbumsPage extends Component {
-  renderItem({ item }) {
-    return <AlbumItem item={item} />;
-  }
 
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <FlatList
+        <Animated.FlatList
           data={albums}
-          renderItem={this.renderItem}
+          renderItem={({item, index}) => (
+            <AlbumItem item={item} index={index}/>
+          )}
           keyExtractor={(item) => item.id}
           numColumns={1}
           initialNumToRender={6}
