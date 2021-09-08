@@ -20,7 +20,7 @@ const { width, height } = Dimensions.get("window");
 const scalarWidth = width / 2;
 const scalarHeight = height * 0.25;
 const IMAGE_SIZE = scalarWidth * 0.9 + 2*SPACING;
-const SPACING = 10;
+const SPACING = 20;
 const ENTRIES = [
   {
     title: "Test",
@@ -191,71 +191,81 @@ const albums = [
   },
 ];
 
-const AlbumItem = ({ item, index, y }) => {
-  let navigation = useNavigation();
-  return (
-    <TouchableOpacity
-      onPress={() => navigation.navigate("Album", { album: item })} style={{margin: SPACING}}
-    >
-      <View style={styles.albumCoverContainer}>
-        <View style={styles.item}>
-          <View
-            style={
-              {
-                width: scalarWidth * 0.9,
-                height: scalarWidth * 0.9,
-              }
-            }
-          />
-          <View
-            style={[
-              styles.shadow,
-              styles.backgroundCard,
-              {
-                
-                left: "2%",
-                top: "0%",
-              },
-            ]}
-          />
-          <View
-            style={[
-              styles.shadow,
-              styles.backgroundCard,
-              {    
-                left: "1%",
-                top: "1%",
-              },
-            ]}
-          />
-          <View style={[styles.shadow, { top: "2%" }]}>
-            <Image source={item.images[0].uri} style={styles.image} />
-          </View>
-        </View>
-        <Text style={styles.title}>{item.title}</Text>
-      </View>
+const AlbumItem = ({ item, index, scrollY }) => {
 
-    </TouchableOpacity>
-  );
+  
 };
 
-class AlbumsPage extends Component {
-
-  render() {
+export default function AlbumsPage() {
+  
+    const scrollY = React.useRef(Animated.Value(0)).current;
+    let navigation = useNavigation();
     return (
       <SafeAreaView style={styles.container}>
         <Animated.FlatList
           data={albums}
-          renderItem={({item, index}) => (
-            <AlbumItem item={item} index={index}/>
+          onScroll={Animated.event(
+            [{nativeEvent: {contentOffset: {y: scrollY}}}],
+            { useNativeDriver: true}
           )}
+          renderItem={({item, index}) => {
+            const ITEM_SIZE = width/2 * 0.9 + 2*SPACING
+            const inputRange = [-1, 0, IMAGE_SIZE*index, IMAGE_SIZE*(index+2)];
+            const scale = scrollY.interpolate({inputRange, outputRange:[1,1,1,0]})
+            return (
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Album", { album: item })} 
+                style={{margin: SPACING}}>
+                <Animated.View style={[styles.albumCoverContainer, {transform: [{scale}]}]}>
+                  <View style={styles.item}>
+                    <View
+                      style={
+                        {
+                          width: scalarWidth * 0.9,
+                          height: scalarWidth * 0.9,
+                        }
+                      }
+                    />
+                    <View
+                      style={[
+                        styles.shadow,
+                        styles.backgroundCard,
+                        {
+                          
+                          left: "2%",
+                          top: "0%",
+                        },
+                      ]}
+                    />
+                    <View
+                      style={[
+                        styles.shadow,
+                        styles.backgroundCard,
+                        {    
+                          left: "1%",
+                          top: "1%",
+                        },
+                      ]}
+                    />
+                    <View style={[styles.shadow, { top: "2%" }]}>
+                      <Image source={item.images[0].uri} style={styles.image} />
+                    </View>
+                  </View>
+                  <Text style={styles.title}>{item.title}</Text>
+                </Animated.View>
+          
+              </TouchableOpacity>
+            );
+          }
+            // <AlbumItem item={item} index={index} scrollY={scrollY}/>
+          }
           keyExtractor={(item) => item.id}
           numColumns={1}
           initialNumToRender={6}
         />
       </SafeAreaView>
     );
-  }
+
 }
 
 const styles = StyleSheet.create({
@@ -315,4 +325,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AlbumsPage;
+// export default AlbumsPage;
