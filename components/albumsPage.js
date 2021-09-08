@@ -194,17 +194,26 @@ const AlbumItem = ({ item }) => {
   let navigation = useNavigation();
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("Album", { album: item })}
+      onPress={() => navigation.navigate("Album", { album: item })} style={{margin: "2%"}}
     >
       <View style={styles.albumCoverContainer}>
         <View style={styles.item}>
           <View
+            style={
+              {
+                width: scalarWidth * 0.9,
+                height: scalarWidth * 0.9,
+              }
+            }
+          />
+          <View
             style={[
               styles.shadow,
               styles.backgroundCard,
               {
+                
                 left: "2%",
-                top: "3%",
+                top: "0%",
               },
             ]}
           />
@@ -212,13 +221,13 @@ const AlbumItem = ({ item }) => {
             style={[
               styles.shadow,
               styles.backgroundCard,
-              {
+              {    
                 left: "1%",
-                top: "4%",
+                top: "1%",
               },
             ]}
           />
-          <View style={styles.shadow}>
+          <View style={[styles.shadow, { top: "2%" }]}>
             <Image source={item.images[0].uri} style={styles.image} />
           </View>
         </View>
@@ -255,7 +264,7 @@ const styles = StyleSheet.create({
   },
   title: {
     position: "absolute",
-    top: "50%",
+    top: "55%",
     color: "white",
     fontFamily: "System",
     fontSize: 25,
@@ -277,21 +286,23 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   image: {
+    // position: "absolute",
     height: scalarWidth * 0.9,
     width: scalarWidth * 0.9,
-    alignSelf: "center",
+    // alignSelf: "center",
     // aspectRatio: 1,
     resizeMode: "contain",
     borderWidth: 5,
     borderColor: "white",
   },
   backgroundCard: {
-    position: "absolute",
+
     width: scalarWidth * 0.9,
     height: scalarWidth * 0.9,
     backgroundColor: "white",
   },
   shadow: {
+    position: "absolute",
     shadowColor: "#000",
     shadowOffset: {
       width: 1,
