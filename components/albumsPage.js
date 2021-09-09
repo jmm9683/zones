@@ -12,8 +12,6 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import React, { Component } from "react";
-import { interpolate } from "react-native-reanimated";
-// import Image from "react-native-scalable-image";
 
 const { width, height } = Dimensions.get("window");
 
@@ -194,7 +192,8 @@ const albums = [
 const AlbumItem = ({ item, index, scrollY }) => {};
 
 export default function AlbumsPage() {
-  const scrollY = React.useRef(Animated.Value(0)).current;
+  const scrollY = React.useRef(new Animated.Value(0)).current;
+  const y = new Animated.Value(0);
   let navigation = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
@@ -202,27 +201,59 @@ export default function AlbumsPage() {
         data={albums}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-          { useNativeDriver: true }
+          {
+            useNativeDriver: true,
+          }
         )}
         renderItem={({ item, index }) => {
           const ITEM_SIZE = (width / 2) * 0.9 + 2 * SPACING;
-          const inputRange = [
-            -1,
-            0,
-            IMAGE_SIZE * index,
-            IMAGE_SIZE * (index + 2),
-          ];
           const scale = scrollY.interpolate({
-            inputRange,
+            inputRange: [-1, 0, ITEM_SIZE * index, ITEM_SIZE * (index + 3)],
             outputRange: [1, 1, 1, 0],
           });
+          const translateY = Animated.add(
+            scrollY,
+            scrollY.interpolate({
+              inputRange: [0, index * ITEM_SIZE],
+              outputRange: [0, -index * ITEM_SIZE + index],
+              extrapolateRight: "clamp",
+            })
+          );
+          const rotateX = scrollY.interpolate({
+            inputRange: [-1, 0, ITEM_SIZE * index, ITEM_SIZE * (index + 3)],
+            outputRange: ["0deg", "0deg", "0deg", "25deg"],
+          });
+          const rotateZ = scrollY.interpolate({
+            inputRange: [-1, 0, ITEM_SIZE * index, ITEM_SIZE * (index + 3)],
+            outputRange: ["0deg", "0deg", "0deg", "25deg"],
+          });
+          const translateX = scrollY.interpolate({
+            inputRange: [-1, 0, ITEM_SIZE * index, ITEM_SIZE * (index + 3)],
+            outputRange: [0, 0, 0, width],
+          });
+          // const opacity = scrollY.interpolate({
+          //   inputRange: [-1, 0, ITEM_SIZE * index, ITEM_SIZE * (index + 3)],
+          //   outputRange: [1, 1, 1, 0],
+          // });
           return (
             <TouchableOpacity
               onPress={() => navigation.navigate("Album", { album: item })}
               style={{ margin: SPACING }}
             >
               <Animated.View
-                style={[styles.albumCoverContainer, { transform: [{ scale }] }]}
+                style={[
+                  styles.albumCoverContainer,
+                  {
+                    transform: [
+                      { rotateX },
+                      { rotateZ },
+                      { scale },
+                      { translateX },
+                      { translateY },
+                    ],
+                    zIndex: index,
+                  },
+                ]}
               >
                 <View style={styles.item}>
                   <View
@@ -263,6 +294,7 @@ export default function AlbumsPage() {
         keyExtractor={(item) => item.id}
         numColumns={1}
         initialNumToRender={6}
+        // scrollEventThrottle={16}
       />
     </SafeAreaView>
   );
